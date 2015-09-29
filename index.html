@@ -9,9 +9,13 @@
 <script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
 <script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
 <script src="Scripts/swfobject_modified.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="phonegap.js"></script>
+
 </head>
 
 <body>
+
 <div data-role="page" id="page">
 	<div class="header">
     <div class="logo">	</div>
@@ -72,6 +76,10 @@
             <li><a href="#page12">
 	
 		    Learn The Numbers</a></li>
+            
+             <li><a href="#page13">
+	
+		    Name The Picture Game</a></li>
  
 		</ul>		
 
@@ -88,7 +96,19 @@
 		
   </div>
 	<div data-role="content">	
-		Content		
+	<ul data-role="listview">
+			<li><a href="#page14">
+	
+		    Uzhinji</a></li>
+            <li><a href="#page15">
+	
+		    Convert English Into Shona Game</a></li>
+            <li><a href="#page15">
+	
+		    Name In Shona The Picture Game</a></li>
+            
+ 
+		</ul>		
 	</div>
 	<div data-role="footer" class ="footerBG">	<h4><a href="#page" data-role="button" data-icon="back" data-iconpos="notext">Button</a></h4>
 	</div>
@@ -121,16 +141,17 @@
                 
 <input type="text"  id="textinput3"     />
 
-<input type="Button" value="Submit" id="PageRefresh"></input> 
+<input type="Button"  id="PageRefresh"></input> 
 
-<button id="PageRefresh1" > Next </button>
+
 <script type="text/javascript">
-
+document.getElementById("PageRefresh").value = "Submit";
 
 var num1 = Math.floor(Math.random() * 20) + 1;
 
 var num2 = Math.floor(Math.random() * 20) + 1;
 
+var result=0,quest=0;
 
 
 
@@ -138,7 +159,14 @@ document.getElementById("num1").innerHTML = num1;
 
 
 document.getElementById("num2").innerHTML = num2;
+
+
+
 $('#PageRefresh').click(function(){
+		 
+
+    
+
 	if($('#textinput3').val().length ==0){
 		
 		document.getElementById("test").innerHTML = "Enter Your Answer";
@@ -146,17 +174,39 @@ $('#PageRefresh').click(function(){
 		
 		
 		}
+
+		
+		
 		
 	else{
 	
 var a  = $('#textinput3').val();
+
+
+if(isNaN(a)){ 
+		output = 'Not A Number!!!!!';   }
+else{
 var num3 =parseInt( num1) + parseInt(num2);
+	quest++;
 	
+	if(quest>10){
+		quest=0;
+		
+		output = 'Result:'+ result+'/10';
+		result=0;
+		
+		
+		}
 	
+	else{
+
 if (num3==a){
-	document.getElementById("PageRefresh").value="Next";
+	
+	result++;
 	output = 'Answer Correct';
-	 $('#wrap').append('<embed id="embed_player"    src="Audio/applause.mp3"   autostart="true" hidden="true"></embed>');
+	 var audio = new Media('/assets/www/Audio/applause.mp3');
+	 audio.id='wrap';
+	 audio.play();
 
     
 	}
@@ -165,17 +215,12 @@ if (num3==a){
 		
 		
 	output = 'Answer Wrong : \nCorrect Answer is '+num3+'';
-		 $('#wrap').append('<embed id="embed_player"   src="Audio/wrong.mp3"   autostart="true" hidden="true"></embed>');
+			 var audio = new Media('/assets/www/Audio/wrong.mp33');
+	 audio.id='wrap';
+	 audio.play()
 		}
-	
-document.getElementById("test").innerHTML = output;}
-
-	
-});
-
-$('#PageRefresh1').click(function(){
-	
-	
+			document.getElementById("textinput3").value = "";
+	document.getElementById("test").innerHTML = "";
 
  num1 = Math.floor(Math.random() * 20) + 1;
 
@@ -188,8 +233,14 @@ document.getElementById("num1").innerHTML = num1;
 
 
 document.getElementById("num2").innerHTML = num2;
+}}
+	
+document.getElementById("test").innerHTML = output;}
+
 	
 });
+
+
 	
 	
 </script> 
@@ -694,6 +745,146 @@ document.getElementById("num23").innerHTML = num23;
     </object>
   </div>
   <div data-role="footer" class ="footerBG">	<h4><a href="#page3" data-role="button" data-icon="back" data-iconpos="notext">Button</a></h4></div>
+</div>
+<div data-role="page" id="page13">
+ <div class="header">
+    <div class="logo">	</div>
+    <h1>Name The Picture Game</h1>
+    <div class="redline">	</div>
+		
+	</div>
+  <div data-role="content">
+  
+    <label for="textinput"><a>What Animal Is This ?</a></label>
+  </div>  <div data-role="content"> <img id="pic2"    />
+    <div data-role="fieldcontain">
+      <label for="textinput"><a>Answer:</a></label>
+      <input type="text"  id="animal" value=""  />
+    </div>
+
+<button id="Pic"  > Submit </button>
+
+    <script type="text/javascript">
+var a = 0;
+
+var animal =["buffalo","cat","cheetah","rooster","cow","dog","donkey","dove","duck","elephant","giraffe","goat","horse","hyena","leopard","rhino","sheep","turkey","zebra","lion","pig"];
+
+
+	document.getElementById("pic2").src="Images/"+animal[a]+".png";
+
+
+  $('#Pic').click(function(){
+	  
+
+	
+	    if($('#animal').val().length ==0){
+		
+		document.getElementById("t").innerHTML = "Enter Your Answer";
+		
+		
+		
+		}
+		else{
+			
+		
+	var ch  = $('#animal').val().toLowerCase();
+	
+	var ans = animal[a];
+	if (ch==ans){
+		document.getElementById("t").innerHTML="Answer Correct";
+   document.getElementById("qw").src="Audio/"+animal[a]+".mp3";
+	}
+	 
+	 else{
+			document.getElementById("t").innerHTML="Answer Wrong: Correct Answer is "+ans+""; 
+		
+		  document.getElementById("qw").src="Audio/wrong.mp3";
+		 }
+		   a++;
+		   if(a==20) {a=0;}
+	document.getElementById("pic2").src="Images/"+animal[a]+".png";
+	 }
+	  });
+  </script> 
+  
+   <h1><a> <div  id="t"  align="center">
+</div></a></h1>
+<div id="wrap"><embed id="qw"     autostart="true" hidden="true"></embed></div>
+  
+  </div>
+  <div data-role="footer" class ="footerBG">	<h4><a href="#page3" data-role="button" data-icon="back" data-iconpos="notext">Button</a></h4>
+	</div>
+</div>
+<div data-role="page" id="page14">
+ <div class="header">
+    <div class="logo">	</div>
+    <h1>Shona</h1>
+    <div class="redline">	</div>
+		
+  </div>
+  <div data-role="content">
+  <label for="textinput"><a>Kana </a><a id="shona"></a> <a> dzawanda dzinonzi chii?</a></label>
+  </div>  <div data-role="content"> <img id="pic2"    />
+    <div data-role="fieldcontain">
+      <label for="textinput"><a>Answer:</a></label>
+      <input type="text"  id="ans" value=""  />
+    </div>
+
+<button id="pio12"  > Submit </button>
+
+    <script type="text/javascript">
+var a = 0;
+
+var ans =["vasikana","vakomana","varume","zvingwa","zvikoro","vanhu","dzimba","vana","vadzidzisi","nhumbi","maoko","mabhuku","","hyena","leopard","rhino","sheep","turkey","zebra","lion","pig"];
+
+	document.getElementById("shona").innerHTML = ""+ans[0] +"";
+
+	
+  $('#Pio12').click(function(){
+	  
+
+	
+	    if($('#animal').val().length ==0){
+		
+		document.getElementById("t").innerHTML = "Enter Your Answer";
+		
+		
+		
+		}
+		else{
+			
+		
+	var ch  = $('#animal').val().toLowerCase();
+	
+	var ans = animal[a];
+	if (ch==ans){
+		document.getElementById("t").innerHTML="Answer Correct";
+   document.getElementById("qw").src="Audio/"+animal[a]+".mp3";
+	}
+	 
+	 else{
+			document.getElementById("t").innerHTML="Answer Wrong: Correct Answer is "+ans+""; 
+		
+		  document.getElementById("qw").src="Audio/wrong.mp3";
+		 }
+		   a++;
+		   if(a==20) {a=0;}
+	document.getElementById("pic2").src="Images/"+animal[a]+".png";
+	 }
+	  });
+  </script> 
+  
+   <h1><a> <div  id="t"  align="center">
+</div></a></h1>
+<div id="wrap"><embed id="qw"     autostart="true" hidden="true"></embed></div>
+  
+  </div>
+
+  
+  
+  
+
+  <div data-role="footer" class ="footerBG">	<h4><a href="#page4" data-role="button" data-icon="back" data-iconpos="notext">Button</a></h4></div>
 </div>
 <script type="text/javascript">
 swfobject.registerObject("FLVPlayer");
